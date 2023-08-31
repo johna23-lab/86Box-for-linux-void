@@ -10,21 +10,32 @@ cd build
 
 sudo xbps-install -Suv
 
-sudo xbps-install freetype-devel SDL2-devel libglib-devel libopenal-devel jack-devel rtmidi-devel qt5-devel qt5-tools-devel libevdev-devel extra-cmake-modules
+sudo xbps-install freetype-devel SDL2-devel libglib-devel libopenal-devel jack-devel rtmidi-devel qt5-devel qt5-tools-devel libevdev-devel extra-cmake-modules libslirp-devel
 
 cmake .. -DCMAKE_INSTALL_PREFIX:PATH=/usr
 
-make -j4 
+make -j4
 
 strip src/86Box
 
-make install DESTDIR=/home/void/86box_c
+mkdir -p /home/void/86box_c/opt/86box
 
-git clone https://github.com/86Box/roms /home/void/86box_c/
+cp src/86Box /home/void/86box_c/opt/86box
 
-#https://github.com/insanemal/86box_manager_py
+cd /home/void/86box_c/opt/86box
+
+git clone https://github.com/86Box/roms
+
+rm -rf roms/.*
+
+git clone https://github.com/insanemal/86box_manager_py.git
+
+mv 86box_manager_py/src/*.py .
+
+rm -rf 86box_manager_py
 
 pip install PyQt5 # To use the GUI manager
+
 
 How to install the Void xbps
 =============================
